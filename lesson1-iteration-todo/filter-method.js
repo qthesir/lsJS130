@@ -1,0 +1,20 @@
+function filter(array, callback, thisArg) {
+  let filteredItems = [];
+  for (let index = 0; index < array.length; index++) {
+    let value = array[index];
+    if (callback.call(thisArg, value, index, array)) {
+      filteredItems.push(value);
+    }
+  }
+
+  return filteredItems;
+}
+
+let numbers = [1, 2, 3, 4, 5];
+console.log(filter(numbers, (number) => number > 3)); // => [ 4, 5 ]
+console.log(filter(numbers, (number) => number < 0)); // => []
+console.log(filter(numbers, () => true)); // => [ 1, 2, 3, 4, 5 ]
+
+let values = [1, "abc", null, true, undefined, "xyz"];
+console.log(filter(values, (value) => typeof value === "string"));
+// => [ 'abc', 'xyz' ]
